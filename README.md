@@ -1,5 +1,20 @@
-% System Dynamics diagram of the predator-prey system
-% Author: Ingmar Vierhaus
+# Latex package for System Dynamics 
+
+This aims at supporting latex users with some tikz experience to draw system dynamics (SD) diagrams
+in his/her latex documents.
+
+## Usage
+1 Add the following line to your preamble:
+````latex
+\usepackage{systemdynamics}
+````
+1 Compile using pdflatex
+Make sure the systemdynamics.sty file is somewhere where your latex distribution will find it.
+
+## Example Diagram
+The following code draws a simple two-state diagram.
+
+````latex
 \documentclass{standalone}
 \pagestyle{empty}
 \usepackage{systemdynamics}
@@ -28,3 +43,8 @@
 
 \end{tikzpicture}
 \end{document}
+````
+
+The output will look as follows:
+<img alt="Predator Prey model" src="predator_prey.png" style="width: 20em;" />
+
