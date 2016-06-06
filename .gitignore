@@ -1,0 +1,11 @@
+/tmp
+/document.pdf
+/document.synctex.gz
+/predator_prey.synctex.gz
+*.synctex.gz
+*.log
+tmp
+.settings
+.project
+.texlipse
+*.aux

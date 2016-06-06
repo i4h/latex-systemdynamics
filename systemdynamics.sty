@@ -1,0 +1,70 @@
+% Systemdynamics package with some useful shortcuts (so far only diagrams)
+% Author: Ingmar Vierhaus
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{systemdynamics}[2013/01/13 Custom Package]
+
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+
+\usetikzlibrary{shapes, shapes.geometric, arrows, decorations.markings}
+\usetikzlibrary{positioning}
+\pgfplotsset{compat=newest} 
+
+
+\tikzstyle{stock} = [rectangle, minimum width=2cm, minimum
+height=0.5cm,text centered, draw=black, fill=black!01, align=center, inner
+ysep=1em] \tikzstyle{sdvariable} = []
+\tikzstyle{sdcloud} = [cloud, draw,cloud puffs=8,cloud puff arc=150, aspect=1.5,
+scale=0.5, inner ysep=1em, fill=white] 
+\tikzstyle{arrow} = [thick	,->,>=stealth]
+% Styles for the hourglass             
+\tikzstyle{triangle} = [draw=black, regular polygon, regular
+    polygon sides=3 ,scale=0.6]
+\tikzstyle{border rotated} = [shape border rotate=180]
+% Double arrow credits to Dominik Haumann
+% http://www.texample.net/tikz/examples/double-arrows/
+\tikzstyle{flow} = [thick, decoration={markings,mark=at position
+   1 with {\arrow[semithick]{open triangle 60}}},
+   double distance=1.4pt, shorten >= 5.5pt,
+   preaction = {decorate},
+   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+\tikzstyle{sdarrow} = [->, shorten >=2pt]
+
+%Draws a flow between the given nodes
+% \flow{startnode}{endnode}{flow label}
+\newcommand{\flow}[3] {
+\draw[flow] ({#1}) to node[below=0.3cm] {{#3}} 
+						node[thin, triangle, border rotated, above] (testnode) {}	
+						node[thin, triangle, below] {} 
+						({#2});
+}
+	
+%Draws an ingoing flow (including cloud) for the given node
+% \flow{node}{flow label}
+\newcommand{\flowIn}[2] {
+\node [sdcloud, left=5em of #1] (in_cloud_#1) {};
+\draw[flow] (in_cloud_#1) to node[below=0.3cm] (in_#1_down) {{#2}} 
+						node[thin, triangle, border rotated, above] (in_#1_up) {}	
+						node[thin, triangle, below] (in_#1_down_nolabel) {} 
+						({#1});
+}
+
+%Draws an outgoing flow (including cloud) for the given node
+% \flow{node}{flow label}
+\newcommand{\flowOut}[2] {
+\node [sdcloud, right=5em of #1] (out_cloud_#1) {};
+\draw[flow] ({#1}) to node[below=0.3cm] (out_#1_down) {{#2}} 
+						node[thin, triangle, border rotated, above] (out_#1_up) {}	
+						node[thin, triangle, below] (out_#1_down_nolabel)  {} 
+						(out_cloud_#1);
+}
+
+%Draws an arrow indication functional dependency
+\newcommand{\sdarrow}[3] {
+\ifthenelse{\equal{#3}{}}{
+\draw[sdarrow] ({#1}) to ({#2});
+}{
+\draw[sdarrow, #3] ({#1}) to ({#2});
+}
+}
