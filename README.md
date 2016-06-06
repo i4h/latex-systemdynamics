@@ -4,12 +4,11 @@ This aims at supporting latex users with some tikz experience to draw system dyn
 in his/her latex documents.
 
 ## Usage
-1 Add the following line to your preamble:
-````latex
-\usepackage{systemdynamics}
-````
-1 Compile using pdflatex
-Make sure the systemdynamics.sty file is somewhere where your latex distribution will find it.
+1. Add the following line to your preamble:
+    ````
+    \usepackage{systemdynamics}
+    ````
+2. Compile using pdflatex. Make sure the systemdynamics.sty file is somewhere where your latex distribution will find it.
 
 ## Example Diagram
 The following code draws a simple two-state diagram.
